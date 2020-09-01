@@ -1,0 +1,3 @@
+include ':Lib_Module'
+include ':app'
+rootProject.name = "Android_Lib_Module"

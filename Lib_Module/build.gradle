@@ -1,0 +1,15 @@
+apply from: '../build_default.gradle'
+apply plugin: 'com.github.dcendents.android-maven'
+
+group = 'com.github.FairyHeart'
+
+def cfg = rootProject.ext.android
+def libs = rootProject.ext.dependencies
+
+android {
+
+    defaultConfig {
+        versionCode cfg.lib_module_version_code
+        versionName cfg.lib_module_version_name
+    }
+}
