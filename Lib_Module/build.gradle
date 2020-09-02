@@ -16,19 +16,19 @@ android {
 
 dependencies{
     //ARouter
-    implementation "com.alibaba:arouter-api:${libs.arouter_api_version}"
-    kapt "com.alibaba:arouter-compiler:${libs.arouter_compiler_version}"
+//    implementation "com.alibaba:arouter-api:${libs.arouter_api_version}"
+//    kapt "com.alibaba:arouter-compiler:${libs.arouter_compiler_version}"
 
     //gson
-    implementation "com.google.code.gson:gson:${libs.gson_version}"
+//    implementation "com.google.code.gson:gson:${libs.gson_version}"
 
     //multiDex
     implementation 'androidx.multidex:multidex:2.0.1' //androidx
 
     //RxJava
-    implementation "io.reactivex.rxjava2:rxjava:${libs.rxjava_version}"
-    implementation "io.reactivex.rxjava2:rxandroid:${libs.rxandroid_version}"
+//    implementation "io.reactivex.rxjava2:rxjava:${libs.rxjava_version}"
+//    implementation "io.reactivex.rxjava2:rxandroid:${libs.rxandroid_version}"
 
     //fairy
-    implementation 'com.github.FairyHeart:Android_Lib_Utils:1.0.0'
+    implementation 'com.github.FairyHeart:Android_Lib_Utils:1.0.1'
 }
