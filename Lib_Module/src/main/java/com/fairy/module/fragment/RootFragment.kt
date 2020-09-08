@@ -23,7 +23,7 @@ abstract class RootFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return mContext.inflateLayout(getLayoutId(), container, false)
+        return context?.inflateLayout(getLayoutId(), container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
