@@ -1,5 +1,6 @@
 apply from: '../build_default.gradle'
 apply plugin: 'com.github.dcendents.android-maven'
+//apply plugin: 'org.jetbrains.dokka'
 
 group = 'com.github.FairyHeart'
 
@@ -12,9 +13,25 @@ android {
         versionCode cfg.lib_module_version_code
         versionName cfg.lib_module_version_name
     }
+
+    /*dokka {
+        // 输出格式，目前支持五种，html, javadoc,html-as-java, markdown,kotlin-website*
+        outputFormat = 'javadoc'
+        // 文档输出目录
+        outputDirectory = "$rootDir/javadoc"
+        //配置方式一
+        configuration {
+            noJdkLink = true
+            noStdlibLink = true
+            noAndroidSdkLink = true//
+            skipDeprecated = true // 跳过废弃的接口
+            reportUndocumented = true // Emit warnings about not documented members.
+            skipEmptyPackages = true // 跳过空包
+        }
+    }*/
 }
 
-dependencies{
+dependencies {
     //ARouter
 //    implementation "com.alibaba:arouter-api:${libs.arouter_api_version}"
 //    kapt "com.alibaba:arouter-compiler:${libs.arouter_compiler_version}"
