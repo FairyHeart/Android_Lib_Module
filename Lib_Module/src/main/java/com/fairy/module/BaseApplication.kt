@@ -7,7 +7,8 @@ import com.fairy.lib.utils.getAppVersionCode
 import com.fairy.lib.utils.getAppVersionName
 
 /**
- *
+ * 基础Application
+ *    自动实现拆包和AppPlatform平台配置初始化
  *
  * @author: Fairy.
  * @date  : 2020/9/1.

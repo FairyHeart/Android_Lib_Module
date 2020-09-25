@@ -9,7 +9,7 @@ import com.fairy.lib.utils.kfunc.inflateLayout
 import com.fairy.module.AppPlatform
 
 /**
- *
+ * 基础Fragment
  *
  * @author: Fairy.
  * @date  : 2020/9/1.
