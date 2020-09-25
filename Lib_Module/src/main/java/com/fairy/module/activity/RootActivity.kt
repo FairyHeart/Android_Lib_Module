@@ -38,7 +38,7 @@ abstract class RootActivity : AppCompatActivity() {
      * @param containerViewId 存放fragment的布局Id，只有当第一次添加的时候使用
      * @param removeOldFragment 显示新的fragment的时候，是否移除原来的fragment true = 移除，false = 隐藏
      */
-    private fun showFragment(
+    fun showFragment(
         fragment: Fragment?,
         containerViewId: Int,
         removeOldFragment: Boolean = false
