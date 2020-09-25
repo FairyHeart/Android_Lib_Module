@@ -73,12 +73,13 @@ abstract class RootActivity : AppCompatActivity() {
      */
     protected fun exitApp(keyCode: Int, event: KeyEvent?, time: Int = 2000): Boolean {
         if (keyCode == KeyEvent.KEYCODE_BACK && event?.action == KeyEvent.ACTION_DOWN) {
-            if ((System.currentTimeMillis() - exitTime) > time) {
+            return if ((System.currentTimeMillis() - exitTime) > time) {
                 exitTime = System.currentTimeMillis()
+                false
             } else {
                 ActivityManager.INSTANCE.finishAllActivity()
+                true
             }
-            return true
         }
         return false
     }
