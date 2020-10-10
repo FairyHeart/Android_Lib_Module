@@ -1,7 +1,6 @@
 package com.fairy.module.activity
 
 import android.os.Bundle
-import android.view.KeyEvent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.fairy.lib.utils.manager.ActivityManager
@@ -13,8 +12,6 @@ import com.fairy.lib.utils.manager.ActivityManager
  * @date  : 2020/9/1.
  */
 abstract class RootActivity : AppCompatActivity() {
-
-    private var exitTime: Long = 0
 
     /**
      * 当前fragment
@@ -62,26 +59,6 @@ abstract class RootActivity : AppCompatActivity() {
         transaction.show(fragment)
         transaction.commit()
         currentFragment = fragment
-    }
-
-    /**
-     * 再按一次退出app
-     *
-     * @param keyCode
-     * @param event
-     * @param time 两次返回的时间间隔 默认为2秒
-     */
-    protected fun exitApp(keyCode: Int, event: KeyEvent?, time: Int = 2000): Boolean {
-        if (keyCode == KeyEvent.KEYCODE_BACK && event?.action == KeyEvent.ACTION_DOWN) {
-            return if ((System.currentTimeMillis() - exitTime) > time) {
-                exitTime = System.currentTimeMillis()
-                false
-            } else {
-                ActivityManager.INSTANCE.finishAllActivity()
-                true
-            }
-        }
-        return false
     }
 
     /**

@@ -8,6 +8,7 @@ class TestApplication : BaseApplication() {
 
     override fun onCreate() {
         super.onCreate()
+        //设置异常处理类
         AppPlatform.setExceptionHandler(TextExceptionHandler())
     }
 
