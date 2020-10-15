@@ -5,8 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
 import com.fairy.lib.utils.kfunc.inflateLayout
 import com.fairy.module.AppPlatform
+import com.fairy.module.observer.LoadingObserver
+import com.fairy.module.observer.ToastObserver
 
 /**
  * 基础Fragment
@@ -17,6 +20,20 @@ import com.fairy.module.AppPlatform
 abstract class RootFragment : Fragment() {
 
     val mContext = AppPlatform.context
+
+    /**
+     * 加载对话框显示值LiveData
+     */
+    val loadingState by lazy {
+        MutableLiveData<Boolean>()
+    }
+
+    /**
+     * 异常提示值LiveData
+     */
+    val toastState by lazy {
+        MutableLiveData<String?>()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,6 +47,8 @@ abstract class RootFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         this.initView()
         this.initViewData(savedInstanceState)
+        this.loadingState.observe(viewLifecycleOwner, LoadingObserver(activity))
+        this.toastState.observe(viewLifecycleOwner, ToastObserver(activity))
     }
 
     /**

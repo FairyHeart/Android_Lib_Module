@@ -3,7 +3,10 @@ package com.fairy.module.activity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
 import com.fairy.lib.utils.manager.ActivityManager
+import com.fairy.module.observer.LoadingObserver
+import com.fairy.module.observer.ToastObserver
 
 /**
  * 顶层Activity
@@ -12,6 +15,20 @@ import com.fairy.lib.utils.manager.ActivityManager
  * @date  : 2020/9/1.
  */
 abstract class RootActivity : AppCompatActivity() {
+
+    /**
+     * 加载对话框显示值LiveData
+     */
+    val loadingState by lazy {
+        MutableLiveData<Boolean>()
+    }
+
+    /**
+     * 异常提示值LiveData
+     */
+    val toastState by lazy {
+        MutableLiveData<String?>()
+    }
 
     /**
      * 当前fragment
@@ -26,6 +43,8 @@ abstract class RootActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ActivityManager.INSTANCE.addActivity(this)
+        this.loadingState.observe(this, LoadingObserver(this))
+        this.toastState.observe(this, ToastObserver(this))
     }
 
     /**

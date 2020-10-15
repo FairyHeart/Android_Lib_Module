@@ -39,4 +39,6 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:${libs.junitx_version}"
     androidTestImplementation "androidx.test.espresso:espresso-core:${libs.espresso_core_version}"
 
+    implementation "androidx.fragment:fragment-ktx:${libs.fragment_ktx_version}"
+
 }
