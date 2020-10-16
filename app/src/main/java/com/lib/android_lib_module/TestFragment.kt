@@ -18,6 +18,11 @@ class TestFragment : RootFragment() {
     }
 
     override fun initViewData(savedInstanceState: Bundle?) {
+
+        //显示加载中对话框
+        loadingState.value = true
+        //显示异常提示框
+        toastState.value = "网络异常"
     }
 
 }

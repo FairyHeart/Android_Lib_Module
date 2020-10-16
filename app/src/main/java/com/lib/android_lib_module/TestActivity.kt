@@ -10,11 +10,6 @@ class TestActivity : RootActivity() {
 
     private lateinit var testFragment: TestFragment
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_test)
-    }
-
     override fun getLayoutId(): Int {
         return R.layout.activity_test
     }
@@ -26,6 +21,16 @@ class TestActivity : RootActivity() {
         //显示Fragment
         this.testFragment = TestFragment()
         this.showFragment(testFragment, R.id.frame_layout)
+
+        //显示加载中对话框
+        loadingState.value = true
+        //显示异常提示框
+        toastState.value = "网络异常"
+
+        Thread {
+            Thread.sleep(800)
+            loadingState.postValue(false)
+        }.start()
     }
 
     /**
@@ -39,4 +44,5 @@ class TestActivity : RootActivity() {
             false
         }
     }
+
 }

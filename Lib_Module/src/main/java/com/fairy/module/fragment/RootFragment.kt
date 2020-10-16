@@ -47,6 +47,7 @@ abstract class RootFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         this.initView()
         this.initViewData(savedInstanceState)
+
         this.loadingState.observe(viewLifecycleOwner, LoadingObserver(activity))
         this.toastState.observe(viewLifecycleOwner, ToastObserver(activity))
     }

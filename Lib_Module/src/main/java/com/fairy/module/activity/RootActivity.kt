@@ -42,9 +42,17 @@ abstract class RootActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        ActivityManager.INSTANCE.addActivity(this)
+
+        setContentView(getLayoutId())
+
+        this.initView()
+        this.initViewData(savedInstanceState)
+
+        //绑定加载中和异常提示对话框
         this.loadingState.observe(this, LoadingObserver(this))
         this.toastState.observe(this, ToastObserver(this))
+
+        ActivityManager.INSTANCE.addActivity(this)
     }
 
     /**
