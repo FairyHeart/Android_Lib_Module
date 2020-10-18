@@ -9,6 +9,6 @@ import androidx.lifecycle.AndroidViewModel
  * @author: Fairy.
  * @date  : 2020/10/15.
  */
-class BaseAndroidViewModel(application: Application) : AndroidViewModel(application) {
+abstract class BaseAndroidViewModel(application: Application) : AndroidViewModel(application) {
 
 }
