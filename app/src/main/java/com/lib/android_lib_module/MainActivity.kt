@@ -1,15 +1,13 @@
 package com.lib.android_lib_module
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.fairy.module.dialog.LoadingDialog
-import kotlinx.android.synthetic.main.activity_main.*
+import com.fairy.module.ui.activity.BindActivity
+import com.lib.android_lib_module.databinding.ActivityMainBinding
+import com.lib.android_lib_module.vm.MainViewModel
 
-class MainActivity : AppCompatActivity() {
-
-    val loadingState = MutableLiveData<Boolean>()
+class MainActivity : BindActivity<ActivityMainBinding, MainViewModel>(R.layout.activity_main) {
 
     val dialog = LoadingDialog.builder()
         .setMinDelay(500)
@@ -18,26 +16,9 @@ class MainActivity : AppCompatActivity() {
         .setLoadingText("加载中...")
         .build(this)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
-        button1.setOnClickListener {
-            loadingState.value = true
-            Thread {
-                Thread.sleep(300)
-                loadingState.postValue(false)
-            }.start()
-        }
-        button2.setOnClickListener {
-            loadingState.value = true
-            Thread {
-                Thread.sleep(10000)
-                loadingState.postValue(false)
-            }.start()
-        }
-
-        loadingState.observe(this, Observer {
+    override fun initObserver() {
+        loadingStateLvd.observe(this, Observer {
             if (it == null) {
                 return@Observer
             }
@@ -47,5 +28,29 @@ class MainActivity : AppCompatActivity() {
                 dialog.hideDialog()
             }
         })
+    }
+
+    override fun setVariable() {
+        binding.activity = this
+    }
+
+    override fun initViewData(savedInstanceState: Bundle?) {
+        super.initViewData(savedInstanceState)
+        dialog.hideDialog()
+    }
+    fun btn1() {
+        loadingStateLvd.value = true
+        Thread {
+            Thread.sleep(300)
+            loadingStateLvd.postValue(false)
+        }.start()
+    }
+
+    fun btn2() {
+        loadingStateLvd.value = true
+        Thread {
+            Thread.sleep(10000)
+            loadingStateLvd.postValue(false)
+        }.start()
     }
 }

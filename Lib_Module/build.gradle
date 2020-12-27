@@ -32,19 +32,11 @@ android {
 }
 
 dependencies {
-    //ARouter
-//    implementation "com.alibaba:arouter-api:${libs.arouter_api_version}"
-//    kapt "com.alibaba:arouter-compiler:${libs.arouter_compiler_version}"
-
-    //gson
-//    implementation "com.google.code.gson:gson:${libs.gson_version}"
-
     //multiDex
-    implementation 'androidx.multidex:multidex:2.0.1' //androidx
+    implementation 'androidx.multidex:multidex:2.0.1'
 
-    //RxJava
-//    implementation "io.reactivex.rxjava2:rxjava:${libs.rxjava_version}"
-//    implementation "io.reactivex.rxjava2:rxandroid:${libs.rxandroid_version}"
+    //recyclerView
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'//androidx
 
     //fairy
     implementation 'com.github.FairyHeart:Android_Lib_Utils:1.0.1'
@@ -52,5 +44,7 @@ dependencies {
     //LiveData
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
     implementation 'androidx.fragment:fragment-ktx:1.2.5'
-
+    
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.2.0'
 }

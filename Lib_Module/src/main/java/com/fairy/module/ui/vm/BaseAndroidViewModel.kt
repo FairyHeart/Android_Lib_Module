@@ -1,4 +1,4 @@
-package com.fairy.module.vmodel
+package com.fairy.module.ui.vm
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

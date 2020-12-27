@@ -2,36 +2,43 @@ package com.lib.android_lib_module
 
 import android.os.Bundle
 import android.view.KeyEvent
-import android.widget.Toast
-import com.fairy.module.activity.RootActivity
 import com.fairy.module.exitApp
+import com.fairy.module.ui.activity.BindActivity
+import com.lib.android_lib_module.databinding.ActivityTestBinding
+import com.lib.android_lib_module.vm.TestViewModel
 
-class TestActivity : RootActivity() {
+class TestActivity : BindActivity<ActivityTestBinding, TestViewModel>(R.layout.activity_test) {
 
     private lateinit var testFragment: TestFragment
 
-    override fun getLayoutId(): Int {
-        return R.layout.activity_test
+
+    override fun initObserver() {
+
     }
 
-    override fun initView() {
+    override fun setVariable() {
+        binding.vm = vm
     }
 
     override fun initViewData(savedInstanceState: Bundle?) {
         //显示Fragment
         this.testFragment = TestFragment()
-        this.showFragment(testFragment, R.id.frame_layout)
+//        this.showFragment(testFragment, R.id.frame_layout)
 
         //显示加载中对话框
-        loadingState.value = true
+        loadingStateLvd.value = true
         //显示异常提示框
-        toastState.value = "网络异常"
+        toastStateLvd.value = "网络异常"
 
         Thread {
             Thread.sleep(800)
-            loadingState.postValue(false)
+            loadingStateLvd.postValue(false)
         }.start()
     }
+
+    override fun refresh() {
+    }
+
 
     /**
      * 再按一次退出程序提示
@@ -40,7 +47,7 @@ class TestActivity : RootActivity() {
         return if (event.exitApp(keyCode)) {
             true
         } else {
-            Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show()
+            toastStateLvd.value = "再按一次退出程序"
             false
         }
     }

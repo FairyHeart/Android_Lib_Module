@@ -5,11 +5,11 @@ import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
 import com.fairy.module.R
-import kotlinx.android.synthetic.main.dialog_loading.*
+import com.fairy.module.databinding.DialogLoadingBinding
 
 /**
  * 加载对话框
@@ -23,7 +23,7 @@ class LoadingDialog private constructor(
     private val minDelay: Int,//延迟时间
     private val style: Int//对话框样式
 ) :
-    DialogFragment(),ILoadingDialog {
+    DialogFragment(), ILoadingDialog {
 
     private val loadTextKey = "loadingText"
 
@@ -50,6 +50,7 @@ class LoadingDialog private constructor(
         }
     }
 
+    private lateinit var binding: DialogLoadingBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,14 +62,15 @@ class LoadingDialog private constructor(
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return LayoutInflater.from(context).inflate(R.layout.dialog_loading, container)
+        binding = DataBindingUtil.inflate(inflater, R.layout.dialog_loading, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         arguments?.getString(loadTextKey).let {
             if (it != null) {
-                load_tv.text = it
+                binding.loadTv.text = it
             }
         }
     }
