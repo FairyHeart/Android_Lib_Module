@@ -7,7 +7,7 @@ import com.fairy.module.ui.activity.BindActivity
 import com.lib.android_lib_module.databinding.ActivityMainBinding
 import com.lib.android_lib_module.vm.MainViewModel
 
-class MainActivity : BindActivity<ActivityMainBinding, MainViewModel>(R.layout.activity_main) {
+class MainActivity : BindActivity2<ActivityMainBinding, MainViewModel>(R.layout.activity_main) {
 
     val dialog = LoadingDialog.builder()
         .setMinDelay(500)
