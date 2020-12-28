@@ -68,7 +68,7 @@ fun BaseAndroidViewModel.launch(
             loadStateLvd.value = LoadState.success()
         } catch (e: Throwable) {
             if (e is BizException) {
-                loadStateLvd.value = LoadState.error(e.message, e.code)
+                loadStateLvd.value = LoadState.error(e.code,e.message)
             } else {
                 loadStateLvd.value = LoadState.error(e.message)
             }
