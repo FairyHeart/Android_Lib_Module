@@ -49,6 +49,8 @@ abstract class BindActivity<T : ViewDataBinding, VM : ViewModel>(
         super.onCreate(savedInstanceState)
         activityTag = this.javaClass.name
 
+        this.initActionBar()
+
         binding = DataBindingUtil.setContentView(this, layoutId)
         binding.lifecycleOwner = this
         binding.executePendingBindings()
@@ -85,5 +87,12 @@ abstract class BindActivity<T : ViewDataBinding, VM : ViewModel>(
         val parameterizedType = this.javaClass.genericSuperclass as ParameterizedType?
         val types = parameterizedType?.actualTypeArguments
         return if (types?.get(1) == null) null else types[1] as Class<VM>
+    }
+
+    /**
+     * 初始化ActionBar
+     */
+    fun initActionBar() {
+
     }
 }

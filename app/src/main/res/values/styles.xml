@@ -5,6 +5,10 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+        //去掉标题栏阴影
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="windowActionBarOverlay">@null</item>
     </style>
 
 </resources>
