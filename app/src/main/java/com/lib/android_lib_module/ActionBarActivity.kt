@@ -6,8 +6,9 @@ import androidx.appcompat.app.ActionBar
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModel
 import com.fairy.module.ui.activity.BindActivity
+import com.fairy.module.ui.vm.BaseAndroidViewModel
 
-abstract class ActionBarActivity<T : ViewDataBinding, VM : ViewModel>(layoutId: Int) :
+abstract class ActionBarActivity<T : ViewDataBinding, VM : BaseAndroidViewModel>(layoutId: Int) :
     BindActivity<T, VM>(layoutId) {
 
     override fun onCreate(savedInstanceState: Bundle?) {

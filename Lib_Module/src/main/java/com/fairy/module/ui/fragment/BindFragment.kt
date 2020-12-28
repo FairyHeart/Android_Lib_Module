@@ -7,17 +7,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.fairy.module.observer.LoadingObserver
-import com.fairy.module.observer.ToastObserver
+import com.fairy.module.dialog.LoadingDialog
+import com.fairy.module.enums.MsgLevelEnum
+import com.fairy.module.enums.StatusEnum
 import com.fairy.module.ui.ILifecycleView
+import com.fairy.module.ui.vm.BaseAndroidViewModel
 import java.lang.reflect.ParameterizedType
 
 /**
@@ -26,7 +27,7 @@ import java.lang.reflect.ParameterizedType
  * @author: Fairy.
  * @date  : 2020/12/27.
  */
-abstract class BindFragment<T : ViewDataBinding, VM : ViewModel>(
+abstract class BindFragment<T : ViewDataBinding, VM : BaseAndroidViewModel>(
     @LayoutRes val layoutId: Int
 ) : Fragment(), ILifecycleView {
 
@@ -41,20 +42,6 @@ abstract class BindFragment<T : ViewDataBinding, VM : ViewModel>(
 
     lateinit var binding: T
     lateinit var vm: VM
-
-    /**
-     * 加载对话框显示值LiveData
-     */
-    val loadingState by lazy {
-        MutableLiveData<Boolean>()
-    }
-
-    /**
-     * 异常提示值LiveData
-     */
-    val toastState by lazy {
-        MutableLiveData<String?>()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -78,8 +65,18 @@ abstract class BindFragment<T : ViewDataBinding, VM : ViewModel>(
         this.initView()
         this.initViewData(savedInstanceState)
 
-        this.loadingState.observe(viewLifecycleOwner, LoadingObserver(activity))
-        this.toastState.observe(viewLifecycleOwner, ToastObserver(activity))
+        //绑定加载中和异常提示对话框
+        vm.loadStateLvd.observe(viewLifecycleOwner) {
+            when (it.status) {
+                StatusEnum.LOADING -> loading(it.msg)
+                StatusEnum.SUCCESS -> loadSuccess()
+                StatusEnum.FAIL -> loadFail(it.code, it.msg)
+                StatusEnum.COMPLETE -> loadComplete()
+            }
+        }
+        vm.msgStateLvd.observe(viewLifecycleOwner) {
+            showMsg(it.level, it.msg)
+        }
     }
 
     override fun onHiddenChanged(hidden: Boolean) {
@@ -117,5 +114,24 @@ abstract class BindFragment<T : ViewDataBinding, VM : ViewModel>(
         val parameterizedType = this.javaClass.genericSuperclass as ParameterizedType?
         val types = parameterizedType?.actualTypeArguments
         return if (types?.get(1) == null) null else types[1] as Class<VM>
+    }
+
+    override fun loadFail(code: String?, msg: String?) {
+        msg?.let {
+            Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun loading(msg: String?) {
+        LoadingDialog.builder()
+            .setLoadingText(msg ?: "loading")
+            .build(mActivity)
+            .showDialog()
+    }
+
+    override fun showMsg(level: MsgLevelEnum, msg: String?) {
+        msg?.let {
+            Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show()
+        }
     }
 }

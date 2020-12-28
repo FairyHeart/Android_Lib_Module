@@ -2,8 +2,10 @@ package com.lib.android_lib_module
 
 import android.os.Bundle
 import android.view.KeyEvent
-import com.fairy.module.exitApp
+import android.widget.Toast
+import com.fairy.module.ktx.exitApp
 import com.fairy.module.ui.activity.BindActivity
+import com.fairy.module.ui.vo.LoadState
 import com.lib.android_lib_module.databinding.ActivityTestBinding
 import com.lib.android_lib_module.vm.TestViewModel
 
@@ -25,15 +27,8 @@ class TestActivity : BindActivity<ActivityTestBinding, TestViewModel>(R.layout.a
         this.testFragment = TestFragment()
 //        this.showFragment(testFragment, R.id.frame_layout)
 
-        //显示加载中对话框
-        loadingStateLvd.value = true
-        //显示异常提示框
-        toastStateLvd.value = "网络异常"
+        vm.loadStateLvd.value = LoadState.loading();
 
-        Thread {
-            Thread.sleep(800)
-            loadingStateLvd.postValue(false)
-        }.start()
     }
 
     override fun refresh() {
@@ -47,7 +42,7 @@ class TestActivity : BindActivity<ActivityTestBinding, TestViewModel>(R.layout.a
         return if (event.exitApp(keyCode)) {
             true
         } else {
-            toastStateLvd.value = "再按一次退出程序"
+            Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show()
             false
         }
     }

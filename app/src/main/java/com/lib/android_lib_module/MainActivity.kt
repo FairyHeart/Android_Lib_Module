@@ -1,7 +1,6 @@
 package com.lib.android_lib_module
 
 import android.os.Bundle
-import androidx.lifecycle.Observer
 import com.fairy.module.dialog.LoadingDialog
 import com.lib.android_lib_module.databinding.ActivityMainBinding
 import com.lib.android_lib_module.vm.MainViewModel
@@ -17,16 +16,7 @@ class MainActivity : ActionBarActivity<ActivityMainBinding, MainViewModel>(R.lay
 
 
     override fun initObserver() {
-        loadingStateLvd.observe(this, Observer {
-            if (it == null) {
-                return@Observer
-            }
-            if (it) {
-                dialog.showDialog()
-            } else {
-                dialog.hideDialog()
-            }
-        })
+
     }
 
     override fun setVariable() {
@@ -37,19 +27,11 @@ class MainActivity : ActionBarActivity<ActivityMainBinding, MainViewModel>(R.lay
         super.initViewData(savedInstanceState)
         dialog.hideDialog()
     }
+
     fun btn1() {
-        loadingStateLvd.value = true
-        Thread {
-            Thread.sleep(300)
-            loadingStateLvd.postValue(false)
-        }.start()
     }
 
     fun btn2() {
-        loadingStateLvd.value = true
-        Thread {
-            Thread.sleep(10000)
-            loadingStateLvd.postValue(false)
-        }.start()
+
     }
 }

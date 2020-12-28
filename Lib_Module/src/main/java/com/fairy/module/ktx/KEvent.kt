@@ -1,4 +1,4 @@
-package com.fairy.module
+package com.fairy.module.ktx
 
 import android.view.KeyEvent
 import com.fairy.lib.utils.manager.ActivityManager
