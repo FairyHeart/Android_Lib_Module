@@ -7,6 +7,10 @@ import com.fairy.module.enums.StatusEnum
  *
  * @author: Fairy.
  * @date  : 2020/12/28.
+ *
+ * @param status 状态
+ * @param code 异常code
+ * @param msg 提示消息或者异常信息
  */
 class LoadState(
     val status: StatusEnum,
@@ -17,8 +21,8 @@ class LoadState(
 
         fun success() = LoadState(StatusEnum.SUCCESS)
 
-        fun error(msg: String?, code: String? = null) =
-            LoadState(StatusEnum.FAIL, msg, code)
+        fun fail(code: String? = null, msg: String?) =
+            LoadState(StatusEnum.FAIL, code, msg)
 
         fun loading(msg: String? = null) = LoadState(StatusEnum.LOADING, msg = msg)
 
