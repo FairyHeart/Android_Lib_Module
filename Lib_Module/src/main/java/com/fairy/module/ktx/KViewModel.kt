@@ -1,9 +1,6 @@
 package com.fairy.module.ktx
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.fairy.module.exception.BizException
 import com.fairy.module.ui.vm.BaseAndroidViewModel
 import com.fairy.module.ui.vo.LoadState
@@ -13,6 +10,7 @@ import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
+import kotlin.experimental.ExperimentalTypeInference
 
 /**
  * ViewModel拓展函数
@@ -89,11 +87,13 @@ fun BaseAndroidViewModel.launch(
  * @param loadingTip 加载中提示内容
  * @param block 函数体
  */
+@OptIn(ExperimentalTypeInference::class)
 fun <T> BaseAndroidViewModel.liveDataResponse(
+    context: CoroutineContext = EmptyCoroutineContext,
     loadingTip: String? = null,
-    block: suspend () -> T
+    @BuilderInference block: suspend () -> T
 ): LiveData<Response<T>> {
-    return liveData {
+    return liveData(context) {
         emit(Response.loading(loadingTip))
         try {
             emit(Response.success(block.invoke()))
@@ -115,11 +115,13 @@ fun <T> BaseAndroidViewModel.liveDataResponse(
  * @param loadingTip 加载中提示内容
  * @param block 函数体
  */
+@OptIn(ExperimentalTypeInference::class)
 fun <T> BaseAndroidViewModel.liveDataT(
+    context: CoroutineContext = EmptyCoroutineContext,
     loadingTip: String? = null,
-    block: suspend () -> T
+    @BuilderInference block: suspend () -> T
 ): LiveData<T> {
-    return liveData {
+    return liveData(context) {
         loadStateLvd.value = LoadState.loading(loadingTip)
         try {
             emit(block.invoke())
